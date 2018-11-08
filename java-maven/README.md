@@ -22,3 +22,25 @@ Test the application by running:
 ```
 $ bazel test :tests
 ```
+
+To reproducing missing guava in the output .jdeps:
+
+    $ bazel --bazelrc jdk10.bazelrc build //...
+    
+    $ cat bazel-out/darwin-fastbuild/bin/libjava-maven-lib.jdeps|strings
+    //:java-maven-lib
+    com.example.myproject
+
+With jdeps:
+
+    $ bazel build //...
+    
+    $ cat bazel-out/darwin-fastbuild/bin/libjava-maven-lib.jdeps|strings
+    bazel-out/darwin-fastbuild/genfiles/external/com_google_guava_guava/jar/_ijar/jar/external/com_google_guava_guava/jar/com_google_guava_guava-ijar.jar
+    //:java-maven-lib
+    com.example.myproject
+
+Using `-s` shows `-Xbootclasspath/p` when `--host_javabase` is java 8:
+
+    $ bazel build -s //...
+    $ bazel --bazelrc jdk10.bazelrc build -s //...

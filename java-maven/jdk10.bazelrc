@@ -1,0 +1,5 @@
+build --java_toolchain="//tools/build/jdk:toolchain"
+build --host_java_toolchain="//tools/build/jdk:toolchain"
+build --host_javabase=@bazel_tools//tools/jdk:absolute_javabase
+build --define=ABSOLUTE_JAVABASE=/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/
+build --strict_java_deps=OFF
